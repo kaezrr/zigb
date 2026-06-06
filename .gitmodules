@@ -1,0 +1,3 @@
+[submodule "tests/sm83-ssts"]
+	path = tests/sm83-ssts
+	url = https://github.com/SingleStepTests/sm83.git
