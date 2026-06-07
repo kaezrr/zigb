@@ -66,3 +66,56 @@ const Flags = packed struct(u8) {
     /// Zero flag
     z: u1,
 };
+
+test "sm83-single-step-tests" {
+    // load test .json;
+    // for test in test.json:
+    //     set initial processor state from test;
+    //     set initial RAM state from test;
+    //
+    //     for cycle in test:
+    //         cycle processor
+    //         if we are checking cycle-by-cycle:
+    //             compare our R/W/MRQ/Address/Data pins against the current cycle;
+    //
+    //     compare final RAM state to test and report any errors;
+    //     compare final processor state to test and report any errors;
+    try std.testing.expect(true);
+}
+
+test "gp-registers-work" {
+    var register = Register{ .full = 0xABCD };
+
+    try std.testing.expectEqual(0xABCD, register.full);
+    try std.testing.expectEqual(0xAB, register.half.hi);
+    try std.testing.expectEqual(0xCD, register.half.lo);
+
+    register.half.lo = 0xF1;
+
+    try std.testing.expectEqual(0xABF1, register.full);
+    try std.testing.expectEqual(0xAB, register.half.hi);
+    try std.testing.expectEqual(0xF1, register.half.lo);
+}
+
+test "flag-registers-work" {
+    var register = FlagsRegister{ .full = 0xAB50 };
+
+    try std.testing.expectEqual(0xAB50, register.full);
+    try std.testing.expectEqual(0xAB, register.half.a);
+    try std.testing.expectEqual(0, register.half.f.z);
+    try std.testing.expectEqual(1, register.half.f.n);
+    try std.testing.expectEqual(0, register.half.f.h);
+    try std.testing.expectEqual(1, register.half.f.c);
+
+    register.half.f.z = 1;
+    register.half.f.n = 0;
+    register.half.f.h = 1;
+    register.half.f.c = 0;
+
+    try std.testing.expectEqual(0xABA0, register.full);
+    try std.testing.expectEqual(0xAB, register.half.a);
+    try std.testing.expectEqual(1, register.half.f.z);
+    try std.testing.expectEqual(0, register.half.f.n);
+    try std.testing.expectEqual(1, register.half.f.h);
+    try std.testing.expectEqual(0, register.half.f.c);
+}

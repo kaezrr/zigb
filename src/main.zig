@@ -8,3 +8,7 @@ pub fn main(_: std.process.Init) !void {
 
     emulator.run();
 }
+
+test {
+    std.testing.refAllDecls(lib);
+}
