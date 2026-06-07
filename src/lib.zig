@@ -1,5 +1,5 @@
-pub const Cpu = @import("cpu.zig").Cpu;
-pub const Memory = @import("memory.zig").Memory;
+pub const Cpu = @import("Cpu.zig");
+pub const Memory = @import("Memory.zig");
 
 pub const Emulator = struct {
     memory: Memory,
