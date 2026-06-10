@@ -1,3 +1,5 @@
+const Memory = @This();
+
 const BOOT_ROM = @embedFile("_boot.bin");
 
 bytes: [0x10000]u8 = undefined,
