@@ -1,5 +1,5 @@
 pub const Cpu = @import("Cpu.zig");
-pub const Memory = if (@import("builtin").is_test) @import("MockMemory.zig") else @import("Memory.zig");
+pub const Memory = @import("Memory.zig");
 
 pub const Emulator = struct {
     memory: Memory,
